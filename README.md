@@ -61,27 +61,6 @@ synthetic-learner-dataset-generator/
 └── requirements.txt                            # numpy, pandas, scikit-learn, matplotlib
 
 
-# Installation & Running
-Requirements: Python 3.9+ and Jupyter.
-# 1. Clone the repository
-git clone https://github.com/[your-username]/[your-repo].git
-cd [your-repo]
-
-# 2. (Optional) create a virtual environment
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS / Linux
-
-# 3. Install dependencies
-pip install numpy pandas scikit-learn matplotlib jupyter
-
-# 4. Launch the notebook
-jupyter notebook
-
-Open Synthetic_Learner_Dataset_Generator.ipynb and choose Kernel → Restart & Run All. The notebook creates both CSV files, prints the quality and privacy reports, and ends with the test results.
-
-If my_seed.csv is missing, the notebook falls back to a made-up demo seed and tells you so.
-
 # Dataset Schema
 Nine columns per student:
 # Column       	        Type      	        Range        	           Meaning
@@ -95,37 +74,6 @@ Nine columns per student:
 8.exam_score	          Float            0 to 100	              Score in the exam
 9.Result	              category	     Pass, Fail	              Pass if exam_score ≥ 50, otherwise Fail
 
-# How it works
-                +------------------+
-                |  Schema design   |
-                +--------+---------+
-                         |
-        +----------------+----------------+
-        |                                 |
-+-------v--------+               +--------v--------+
-|  Rule-based    |               |   Seed-based    |
-|  generator     |               |   generator     |
-| (chosen rules) |               | (learns from    |
-|                |               |  my_seed.csv)   |
-+-------+--------+               +--------+--------+
-        |                                 |
-        +----------------+----------------+
-                         |
-                +--------v---------+
-                | Quality metrics  |
-                | (schema, stats,  |
-                |  usefulness,     |
-                |  cross-test)     |
-                +--------+---------+
-                         |
-                +--------v---------+
-                | Privacy checks   |
-                | (issue list)     |
-                +--------+---------+
-                         |
-                +--------v---------+
-                |     Tests        |
-                +------------------+
 
 # Generator A: rule-based
 Patterns are rules chosen by hand, each controlled by a number in CONFIG, so every assumption can be explained and changed.
@@ -160,8 +108,7 @@ exam_score	        56.8	                56.6
 
 # Usefulness: can the model predict Pass/Fail? (5-fold cross-validation)
 The exam score is not used as an input, because Result is calculated from it and the model would simply learn the threshold (data leakage).
-
-# Dataset	     Model	               Accuracy	   F1     ROC-AUC
+ Dataset	     Model	               Accuracy	   F1     ROC-AUC
 1.Rule-based	Logistic regression    	0.73	     0.81  	0.77 
 2.Rule-based	Random forest	          0.69       0.78  	0.76 
 3.Seed-based	Logistic regression	    0.85       0.89  	0.92 
@@ -169,7 +116,7 @@ The exam score is not used as an input, because Result is calculated from it and
 
 # Privacy checks
 Each dataset is checked for:
-# Check	             What it looks for	            
+ Check	             What it looks for	            
 1.Duplicates          Repeated IDs or repeated rows (ignoring ID)	
 2.Exact seed copies	  Generated rows identical to a seed row	
 3.Near-copies	        Nearest-neighbour distance to a seed row in standardised units	
