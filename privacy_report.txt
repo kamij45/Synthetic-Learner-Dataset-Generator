@@ -1,0 +1,47 @@
+============================================================
+Rule-based (mine): synthetic_students.csv (100 rows)
+============================================================
+1. Duplicates
+  Duplicate IDs: 0
+  Duplicate rows (ignoring ID): 0
+2. Similarity to seed rows
+  Exact copies of seed rows: 0
+  Nearest distance to a seed row: min 0.62, median 1.73
+  (For comparison, seed rows are a median of 1.80 from each other)
+  Near-copies (distance < 0.1): 0 rows (0.0%)
+3. Uniqueness (re-identification risk)
+  Smallest group size (k): 1
+  Rows that are unique on age band + study band + internet: 13
+  Rows in groups smaller than 3: 37 (37.0%)
+4. Direct identifiers
+  IDs not matching ^S\d{4,}$: 0
+  Emails/phone numbers found in text columns: 0
+
+============================================================
+Seed-based (yours): my_synthetic_students_data.csv (500 rows)
+============================================================
+1. Duplicates
+  Duplicate IDs: 0
+  Duplicate rows (ignoring ID): 0
+2. Similarity to seed rows
+  Exact copies of seed rows: 0
+  Nearest distance to a seed row: min 0.56, median 1.41
+  (For comparison, seed rows are a median of 1.51 from each other)
+  Near-copies (distance < 0.1): 0 rows (0.0%)
+3. Uniqueness (re-identification risk)
+  Smallest group size (k): 1
+  Rows that are unique on age band + study band + internet: 4
+  Rows in groups smaller than 3: 10 (2.0%)
+4. Direct identifiers
+  IDs not matching ^S\d{4,}$: 0
+  Emails/phone numbers found in text columns: 0
+
+============================================================
+ISSUE LIST
+============================================================
+Rule-based (mine): 1 issue(s)
+  1. 37.0% of rows are in groups smaller than 3
+     Suggested fix: Use wider bands (e.g. 10-year age groups) when sharing, or remove/merge rare combinations.
+Seed-based (yours): no issues above the thresholds.
+
+Note: these checks reduce risk but cannot prove privacy. They depend on the thresholds set at the top of this script.
