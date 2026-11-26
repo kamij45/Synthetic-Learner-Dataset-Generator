@@ -49,47 +49,47 @@ Normally you would prove fake data is realistic by comparing it with real data. 
 
 # Project structure
 synthetic-learner-dataset-generator/
-├── Synthetic_Learner_Dataset_Generator.ipynb   # the full workflow, run top to bottom
-├── my_seed.csv                                 # hand-made seed rows (invented, not real)
-├── synthetic_students.csv                      # output of the rule-based generator
-├── my_synthetic_students.csv                   # output of the seed-based generator
-├── README.md                                   # this file
-└── requirements.txt                            # numpy, pandas, scikit-learn, matplotlib
+├── Synthetic_Learner_Dataset_Generator.ipynb        # the full workflow, run top to bottom
+├── Synthetic Dataset.csv                             # hand-made seed rows (invented, not real)
+├── synthetic_students.csv                            # output of the rule-based generator
+├── my_synthetic_students.csv                         # output of the seed-based generator
+├── README.md                                       # this file
+└── requirements.txt                                # numpy, pandas, scikit-learn, matplotlib
 
 
 # Dataset Schema
 Nine columns per student:
 # Column       	        Type      	        Range        	           Meaning
-1.ID	                  Text	           S0001, S0002,  	      Made-up identifier, never a real student number
-2.Age	                  Integer	         18 to 30	              Student age
-3.Study_hrs	            Float	           0 to 12	              Study hours per Day
-4.Attendance%	          Float	           0 to 100	              Percentage of classes attended
-5.Total_screen_time   	Float	           0 to 24	              Screen hours per day
-6.Sleep_hrs	            Float	           0 to 24	              Sleep hours per night
-7.Internet_quality	    category	    Poor, Average, Good	      Quality of the student's internet connection
-8.exam_score	          Float            0 to 100	              Score in the exam
-9.Result	              category	     Pass, Fail	              Pass if exam_score ≥ 50, otherwise Fail
+1. ID	                  Text	           S0001, S0002,  	      Made-up identifier, never a real student number
+2. Age	                  Integer	         18 to 30	              Student age
+3. Study_hrs	            Float	           0 to 12	              Study hours per Day
+4. Attendance%	          Float	           0 to 100	              Percentage of classes attended
+5. Total_screen_time   	Float	           0 to 24	              Screen hours per day
+6. Sleep_hrs	            Float	           0 to 24	              Sleep hours per night
+7. Internet_quality	    category	    Poor, Average, Good	      Quality of the student's internet connection
+8. exam_score	          Float            0 to 100	              Score in the exam
+9. Result	              category	     Pass, Fail	              Pass if exam_score ≥ 50, otherwise Fail
 
 
 # Generator A: rule-based
 Patterns are rules chosen by hand, each controlled by a number in CONFIG, so every assumption can be explained and changed.
 
-1.Factor	Effect on exam score
-2.Study hours	+1.3 marks per weekly hour
-3.Attendance	+0.30 marks per percentage point
-4.Sleep	Loses 1.5 marks per hour away from 7.5 hours
-5.Screen time	Loses 0.9 marks per daily hour above 6
-6.Internet quality	+1.5 marks per step on a 1 to 5 scale
-7.Random noise	Normal, standard deviation 8, so real-life unpredictability is kept
-
+Factors on exam score:
+1. Study hours,	+1.3 marks per weekly hour
+2. Attendance	+0.30 marks per percentage point
+3. Sleep	Loses 1.5 marks per hour away from 7.5 hours
+4. Screen time	Loses 0.9 marks per daily hour above 6
+5. Internet quality	+1.5 marks per step on a 1 to 5 scale
+6. Random noise	Normal, standard deviation 8, so real-life unpredictability is kept
+7. 
 Attendance is also made to rise slightly with study hours, and the final score is limited to 0 to 100. 
 
 # Generator B: seed-based
-1.You write about 25 invented rows by hand in Excel (my_seed.csv).
-2.The code measures the average and relationships (covariance) between the numeric columns.
-3.It draws new rows from a multivariate normal distribution with those properties, then cleans values to valid ranges.
-4.Internet_quality is a category, so it is sampled separately using the label proportions found in the seed rows.
-5.Result is calculated from exam_score with the pass mark.
+1. You write about 25 invented rows by hand in Excel (Synthetic Dataset.csv).
+2. The code measures the average and relationships (covariance) between the numeric columns.
+3. It draws new rows from a multivariate normal distribution with those properties, then cleans values to valid ranges.
+4. Internet_quality is a category, so it is sampled separately using the label proportions found in the seed rows.
+5. Result is calculated from exam_score with the pass mark.
 
 # Quality metrics and results
 Side-by-side averages
@@ -105,19 +105,19 @@ exam_score	        56.8	                56.6
 # Usefulness: can the model predict Pass/Fail? (5-fold cross-validation)
 The exam score is not used as an input, because Result is calculated from it and the model would simply learn the threshold (data leakage).
  Dataset	     Model	               Accuracy	   F1     ROC-AUC
-1.Rule-based	Logistic regression    	0.73	     0.81  	0.77 
-2.Rule-based	Random forest	          0.69       0.78  	0.76 
-3.Seed-based	Logistic regression	    0.85       0.89  	0.92 
-4.Seed-based	Random forest	          0.84       0.88  	0.89 
+1. Rule-based	Logistic regression    	0.73	     0.81  	0.77 
+2. Rule-based	Random forest	          0.69       0.78  	0.76 
+3. Seed-based	Logistic regression	    0.85       0.89  	0.92 
+4. Seed-based	Random forest	          0.84       0.88  	0.89 
 
 # Privacy checks
 Each dataset is checked for:
  Check	             What it looks for	            
-1.Duplicates          Repeated IDs or repeated rows (ignoring ID)	
-2.Exact seed copies	  Generated rows identical to a seed row	
-3.Near-copies	        Nearest-neighbour distance to a seed row in standardised units	
-4.Uniqueness	        Rows in groups smaller than k = 3 when described by age band, study-hours band and internet quality
-5.Direct identifiers	Emails, phone numbers, and IDs that do not look like S0001\
+1. Duplicates          Repeated IDs or repeated rows (ignoring ID)	
+2. Exact seed copies	  Generated rows identical to a seed row	
+3. Near-copies	        Nearest-neighbour distance to a seed row in standardised units	
+4. Uniqueness	        Rows in groups smaller than k = 3 when described by age band, study-hours band and internet quality
+5. Direct identifiers	Emails, phone numbers, and IDs that do not look like S0001\
 
 # Limitations
 1. A small seed file (around 25 rows) gives noisy patterns in the seed-based generator.
@@ -127,14 +127,16 @@ Each dataset is checked for:
 
 # Testing
 The notebook ends with a test cell covering the core flows:
-1.Schema: nine columns in the right order, valid ranges, valid labels, Result consistent with the pass mark
-2.Reproducibility: the same seed gives identical data and a different seed gives different data
-3.Leakage: exam_score is not a model input
-4.Usefulness: the model beats a "predict the majority" baseline
-5.Privacy: clean data raises no issues, and planted problems are caught (duplicate ID, exact seed copy, near-copy, email)
+1. Schema: nine columns in the right order, valid ranges, valid labels, Result consistent with the pass mark
+2. Reproducibility: the same seed gives identical data and a different seed gives different data
+3. Leakage: exam_score is not a model input
+4. Usefulness: the model beats a "predict the majority" baseline
+5. Privacy: clean data raises no issues, and planted problems are caught (duplicate ID, exact seed copy, near-copy, email)
 
 # Responsible use
 All data in this project is synthetic. It is meant for testing pipelines and tools, not for making decisions about real students. Do not treat patterns in it as evidence about real learners.
 
 # Author
-[Your name] [Your GitHub link] · [Your LinkedIn link]
+Onodingene Kamsiyochukwu Josephine
+[Your GitHub link] 
+https://www.linkedin.com/in/mitchelle-onodingene-a63176406
