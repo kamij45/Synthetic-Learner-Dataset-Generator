@@ -1,0 +1,50 @@
+SYNTHETIC DATASET EVALUATION REPORT
+
+1. QUALITY CHECKS
+                                           Rule-based Seed-based
+Rows                                              100        500
+Missing values                                      0          0
+Duplicate IDs                                       0          0
+Duplicate rows (ignoring ID)                        0          0
+Result inconsistent with 50-mark threshold          0          0
+Pass rate                                        0.67       0.66
+
+2. AVERAGE VALUES SIDE BY SIDE
+                   Rule-based  Seed-based
+Age                      21.9        22.7
+Study_hrs                13.9         6.8
+Attendance%              69.3        51.0
+Total_screen_time         7.3         9.2
+Sleep_hrs                 6.7         5.7
+exam_score               56.8        56.6
+
+3. USEFULNESS (5-fold cross-validation, mean and spread)
+   dataset    model  accuracy_mean  accuracy_std  f1_mean  f1_std  roc_auc_mean  roc_auc_std
+Rule-based logistic          0.730         0.081    0.810   0.051         0.773        0.063
+Rule-based   forest          0.690         0.037    0.783   0.027         0.757        0.022
+Seed-based logistic          0.848         0.044    0.886   0.033         0.918        0.034
+Seed-based   forest          0.838         0.021    0.880   0.016         0.892        0.028
+
+4. CROSS-TEST
+  train_on    test_on  accuracy    f1  roc_auc
+Rule-based Seed-based     0.508 0.403    0.871
+Seed-based Rule-based     0.680 0.805    0.801
+
+5. FEATURE INFLUENCE (positive = raises the chance of passing)
+   dataset                       feature  coefficient
+Rule-based                num__Study_hrs        1.376
+Rule-based        num__Total_screen_time       -0.456
+Rule-based              num__Attendance%        0.328
+Rule-based                num__Sleep_hrs        0.321
+Rule-based    cat__Internet_quality_Poor       -0.189
+Rule-based    cat__Internet_quality_Good        0.137
+Rule-based cat__Internet_quality_Average        0.053
+Rule-based                      num__Age       -0.013
+Seed-based                num__Study_hrs        2.553
+Seed-based                num__Sleep_hrs        0.642
+Seed-based                      num__Age        0.530
+Seed-based    cat__Internet_quality_Good       -0.368
+Seed-based    cat__Internet_quality_Poor        0.258
+Seed-based              num__Attendance%       -0.186
+Seed-based        num__Total_screen_time       -0.170
+Seed-based cat__Internet_quality_Average        0.104

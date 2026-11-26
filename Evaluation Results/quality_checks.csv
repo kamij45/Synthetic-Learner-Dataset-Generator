@@ -1,0 +1,7 @@
+,Rule-based,Seed-based
+Rows,100,500
+Missing values,0,0
+Duplicate IDs,0,0
+Duplicate rows (ignoring ID),0,0
+Result inconsistent with 50-mark threshold,0,0
+Pass rate,0.67,0.66

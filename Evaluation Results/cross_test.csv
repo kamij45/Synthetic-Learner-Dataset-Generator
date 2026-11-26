@@ -1,0 +1,3 @@
+train_on,test_on,accuracy,f1,roc_auc
+Rule-based,Seed-based,0.508,0.403,0.871
+Seed-based,Rule-based,0.68,0.805,0.801

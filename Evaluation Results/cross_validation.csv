@@ -1,0 +1,5 @@
+dataset,model,accuracy_mean,accuracy_std,f1_mean,f1_std,roc_auc_mean,roc_auc_std
+Rule-based,logistic,0.73,0.081,0.81,0.051,0.773,0.063
+Rule-based,forest,0.69,0.037,0.783,0.027,0.757,0.022
+Seed-based,logistic,0.848,0.044,0.886,0.033,0.918,0.034
+Seed-based,forest,0.838,0.021,0.88,0.016,0.892,0.028

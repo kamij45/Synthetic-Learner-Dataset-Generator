@@ -1,0 +1,17 @@
+dataset,feature,coefficient
+Rule-based,num__Study_hrs,1.376
+Rule-based,num__Total_screen_time,-0.456
+Rule-based,num__Attendance%,0.328
+Rule-based,num__Sleep_hrs,0.321
+Rule-based,cat__Internet_quality_Poor,-0.189
+Rule-based,cat__Internet_quality_Good,0.137
+Rule-based,cat__Internet_quality_Average,0.053
+Rule-based,num__Age,-0.013
+Seed-based,num__Study_hrs,2.553
+Seed-based,num__Sleep_hrs,0.642
+Seed-based,num__Age,0.53
+Seed-based,cat__Internet_quality_Good,-0.368
+Seed-based,cat__Internet_quality_Poor,0.258
+Seed-based,num__Attendance%,-0.186
+Seed-based,num__Total_screen_time,-0.17
+Seed-based,cat__Internet_quality_Average,0.104
