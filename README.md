@@ -23,10 +23,10 @@ score reaches the pass mark (50 by default), otherwise they fail.
 The project has four parts:
 # Parts           |     What it Delivers
 ------------------|-----------------------------------------------------------------------------------------------
-1.	Schema design | 	A written blueprint of every column plus a validator that lists problems and suggested fixes
-2. Data generator	|   Two independent generators: rule-based and seed-based
-3. Quality metrics|   Statistics, distribution charts, a model-based usefulness test and a cross-test
-4	Privacy checks	|   Duplicate, copy, near-copy, uniqueness and identifier checks with an issue list
+*	Schema design   | 	A written blueprint of every column plus a validator that lists problems and suggested fixes
+* Data generator	 |   Two independent generators: rule-based and seed-based
+* Quality metrics |   Statistics, distribution charts, a model-based usefulness test and a cross-test
+* Privacy checks	 |   Duplicate, copy, near-copy, uniqueness and identifier checks with an issue list
 
 # Challenge
 Evaluating realism without copying real student records.
@@ -49,26 +49,26 @@ Normally you would prove fake data is realistic by comparing it with real data. 
 
 # Project structure
 synthetic-learner-dataset-generator/
-├── Synthetic_Learner_Dataset_Generator.ipynb        # the full workflow, run top to bottom
-├── Synthetic Dataset.csv                             # hand-made seed rows (invented, not real)
-├── synthetic_students.csv                            # output of the rule-based generator
-├── my_synthetic_students.csv                         # output of the seed-based generator
-├── README.md                                       # this file
-└── requirements.txt                                # numpy, pandas, scikit-learn, matplotlib
+* ├── Synthetic_Learner_Dataset_Generator.ipynb           # the full workflow, run top to bottom
+* ├── Synthetic Dataset.csv                                # hand-made seed rows (invented, not real)
+* ├── synthetic_students.csv                               # output of the rule-based generator
+* ├── my_synthetic_students.csv                           # output of the seed-based generator
+* ├── Synthetic Dataset.md                                       # this file
+* └── requirements.txt                                  # numpy, pandas, scikit-learn, matplotlib
 
 
 # Dataset Schema
 Nine columns per student:
-# Column       	        Type      	        Range        	           Meaning
-1. ID	                  Text	           S0001, S0002,  	      Made-up identifier, never a real student number
-2. Age	                  Integer	         18 to 30	              Student age
-3. Study_hrs	            Float	           0 to 12	              Study hours per Day
-4. Attendance%	          Float	           0 to 100	              Percentage of classes attended
-5. Total_screen_time   	Float	           0 to 24	              Screen hours per day
-6. Sleep_hrs	            Float	           0 to 24	              Sleep hours per night
-7. Internet_quality	    category	    Poor, Average, Good	      Quality of the student's internet connection
-8. exam_score	          Float            0 to 100	              Score in the exam
-9. Result	              category	     Pass, Fail	              Pass if exam_score ≥ 50, otherwise Fail
+# Column       	     |   Type      |	        Range        	 |         Meaning
+1. ID	               -  Text	      -    S0001, S0002,  	    -    Made-up identifier, never a real student number
+2. Age	              -  Integer	   -    18 to 30	           -    Student age
+3. Study_hrs	        -  Float	     -    0 to 12	            -    Study hours per Day
+4. Attendance%	      -  Float	     -    0 to 100	           -    Percentage of classes attended
+5. Total_screen_time -  Float	     -    0 to 24	            -    Screen hours per day
+6. Sleep_hrs	        -  Float	     -    0 to 24	            -    Sleep hours per night
+7. Internet_quality	 -  category	  -   Poor, Average, Good	 -    Quality of the student's internet connection
+8. exam_score	       -  Float      -   0 to 100	            -    Score in the exam
+9. Result	           -  category	  -  Pass, Fail	           -    Pass if exam_score ≥ 50, otherwise Fail
 
 
 # Generator A: rule-based
@@ -81,7 +81,7 @@ Factors on exam score:
 4. Screen time	Loses 0.9 marks per daily hour above 6
 5. Internet quality	+1.5 marks per step on a 1 to 5 scale
 6. Random noise	Normal, standard deviation 8, so real-life unpredictability is kept
-7. 
+ 
 Attendance is also made to rise slightly with study hours, and the final score is limited to 0 to 100. 
 
 # Generator B: seed-based
@@ -92,23 +92,28 @@ Attendance is also made to rise slightly with study hours, and the final score i
 5. Result is calculated from exam_score with the pass mark.
 
 # Quality metrics and results
-Side-by-side averages
-Column	          Rule-based	       Seed-based
-Age	                21.9	                22.7
-Study_hrs	          13.9          	      6.8
-Attendance%	        69.3	                51.0
-Total_screen_time	  7.3	                  9.2
-Sleep_hrs        	  6.7	                  5.7
-exam_score	        56.8	                56.6
+Side-by-side averages:
+
+Column	         |   Rule-based	      |     Seed-based
+* Age	              -  21.9	           -     22.7
+* Study_hrs	        -  13.9          	 -     6.8
+* Attendance%	      -  69.3	           -     51.0
+* Total_screen_time	-  7.3	            -     9.2
+* Sleep_hrs        	-  6.7	            -     5.7
+* exam_score	       -  56.8	           -     56.6
 
 
 # Usefulness: can the model predict Pass/Fail? (5-fold cross-validation)
 The exam score is not used as an input, because Result is calculated from it and the model would simply learn the threshold (data leakage).
- Dataset	     Model	               Accuracy	   F1     ROC-AUC
-1. Rule-based	Logistic regression    	0.73	     0.81  	0.77 
-2. Rule-based	Random forest	          0.69       0.78  	0.76 
-3. Seed-based	Logistic regression	    0.85       0.89  	0.92 
-4. Seed-based	Random forest	          0.84       0.88  	0.89 
+
+ Dataset	       Model	               Accuracy	   F1     ROC-AUC
+1. Rule-based	-  Logistic regression  -  	0.73	 -   0.81  	- 0.77
+   
+2. Rule-based	 - Random forest	   -       0.69   -  0.78 - 	 0.76
+   
+3. Seed-based	-  Logistic regression	  -  0.85  -   0.89  -	 0.92
+   
+4. Seed-based  -	Random forest	      -    0.84  -   0.88 - 	 0.89 
 
 # Privacy checks
 Each dataset is checked for:
@@ -116,8 +121,8 @@ Each dataset is checked for:
 1. Duplicates          Repeated IDs or repeated rows (ignoring ID)	
 2. Exact seed copies	  Generated rows identical to a seed row	
 3. Near-copies	        Nearest-neighbour distance to a seed row in standardised units	
-4. Uniqueness	        Rows in groups smaller than k = 3 when described by age band, study-hours band and internet quality
-5. Direct identifiers	Emails, phone numbers, and IDs that do not look like S0001\
+4. Uniqueness	         Rows in groups smaller than k = 3 when described by age band, study-hours band and internet quality
+5. Direct identifiers	 Emails, phone numbers, and IDs that do not look like S0001\
 
 # Limitations
 1. A small seed file (around 25 rows) gives noisy patterns in the seed-based generator.
@@ -137,6 +142,5 @@ The notebook ends with a test cell covering the core flows:
 All data in this project is synthetic. It is meant for testing pipelines and tools, not for making decisions about real students. Do not treat patterns in it as evidence about real learners.
 
 # Author
-Onodingene Kamsiyochukwu Josephine
-[Your GitHub link] 
-https://www.linkedin.com/in/mitchelle-onodingene-a63176406
+* Onodingene Kamsiyochukwu Josephine
+* https://www.linkedin.com/in/mitchelle-onodingene-a63176406
