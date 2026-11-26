@@ -5,18 +5,14 @@ A tool that generates realistic but entirely fake student exam data (online or p
 1. Overview
 2. Challenge
 3. Features
-4. Installation & Running
-5. Project Structure
-6. Dataset Schema
-7. How It works
-8. Quality Metrics and Results
-9. Privacy Checks
-10. Testing
-11. Design Decisions
-12. Limitations
-13. Future Work
-14. Responsible Use
-15. Author
+4. Project Structure
+5. Dataset Schema
+6. Quality Metrics and Results
+7. Privacy Checks
+8. Testing
+9. Limitations
+10. Responsible Use
+11. Author
 
 # Overview
 Problem: Research teams need safe, realistic test data. Real student records are private and cannot be shared freely, but pipelines, dashboards and prediction models still need data to be built and tested.
