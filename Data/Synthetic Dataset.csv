@@ -1,0 +1,27 @@
+﻿ ID,Age,Study_hrs,Attendance%,Total_screen_time,Sleep_hrs,Internet_quality,exam_score,Result
+S001,25,12,50,8,7,Good,80,Pass
+S002,18,2,15,15,4,Good,25.5,Fail
+S003,26,4,30,10,4,Good,30.5,Fail
+S004,20,10,65,10,6,Poor,50,Pass
+S005,19,5,30,17,3,Average,45.5,Fail
+S006,22,8,75,5,8,Average,65.4,Pass
+S007,18,2.5,10,10,5,Poor,20.3,Fail
+S008,18,5,35,3,4,Poor,50,Pass
+S009,30,7.5,80,10,7,Good,65.5,Pass
+S010,23,1.2,20,7,4,Poor,35.4,Fail
+S011,20,11,70,7,8,Average,90,Pass
+S012,24,6,50,8,5,Average,65.5,Pass
+S013,27,4,75,19,7,Good,45.5,Fail
+S014,21,12,80,6,6,Good,75.5,Pass
+S015,21,9,65,7,3,Poor,65,Pass
+S016,22,4.4,50,9,8,Poor,45.5,Fail
+S017,28,7,15,4,3,Average,70,Pass
+S018,29,9,45,5,6,Average,75,Pass
+S019,19,6,65,9,7,Good,50,Pass
+S020,20,6,10,18,4,Poor,60,Pass
+S021,18,2,70,18,8,Average,45.5,Fail
+S022,18,6,35,5,3,Good,50,Pass
+S023,18,11,50,4,7,Good,75.5,Pass
+S023,30,11,65,5,7,Average,80,Pass
+S025,25,5,20,8,5,Poor,55,Pass
+S026,25,9,45,9,4,Average,55,Pass
